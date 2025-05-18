@@ -1,4 +1,5 @@
 const { users } = require('../data');
+const User = require('../models/users')
 
 exports.getAllUsers = (req, res) => {
     res.json(users);

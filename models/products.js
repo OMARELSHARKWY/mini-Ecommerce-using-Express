@@ -17,6 +17,17 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required : [true,"categoryId is required"]
     }
+    //  ,
+    // isbn :{
+    //     type : Number,
+    //     required : [true , "Isbn is required"],
+    //     validate : {
+    //         validator: function(v){
+    //             return /\d{3}-\d{10}/.test(v)
+    //         }
+    //     },
+    //     message : err => `${err.value} is not a valid Isbn`,
+    // }
 })
 
 const product = mongoose.model('product',productSchema);

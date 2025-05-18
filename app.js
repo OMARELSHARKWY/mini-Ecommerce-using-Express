@@ -6,6 +6,10 @@ const path = require('path')
 
 const openApiDocument = require('./swagger/openapi')
 const seedProduct = require('./seedings/seedProduct')
+const productRouter = require('./routers/products')
+const categoriesRouter = require('./routers/categories')
+const cartRouter = require('./routers/cart')
+const usersRouter = require('./routers/users')
 require('dotenv').config();
 
 
@@ -13,8 +17,6 @@ const productsController = require('./controllers/productsController');
 const categoriesController = require('./controllers/categoriesController');
 const usersController = require('./controllers/usersController');
 const cartController = require('./controllers/cartController');
-const { error } = require('console');
-
 
 const app = express();
 app.use(morgan(":method :url :response-time"));
@@ -28,36 +30,23 @@ app.use('/swagger.json' , express.static(path.join(__dirname,'swagger.json')))
 
 
 
-// PRODUCTS endpoints
-app.get('/api/products', productsController.getAllProducts);
-app.get('/api/products/:id', productsController.getProductById);        // خلي بالك هنا دي اللي هتهندل قبل السيرش يعني كدا السيرش مش هيشتغل
-app.get('/api/products/search', productsController.searchProducts);
-app.post('/api/products', productsController.addProduct);
-app.put('/api/products/:id', productsController.replaceProduct);
-app.patch('/api/products/:id', productsController.updateProduct);
-app.delete('/api/products/:id', productsController.deleteProduct);
 
-// CATEGORIES endpoints
-app.get('/api/categories', categoriesController.getAllCategories);
-app.get('/api/categories/:id/products', categoriesController.getProductsByCategory);
-app.post('/api/categories', categoriesController.addCategory);
-
-// USERS endpoints
-app.get('/api/users', usersController.getAllUsers);
-app.get('/api/users/:id', usersController.getUserById);
-app.post('/api/users', usersController.addUser);
-app.put('/api/users/:id', usersController.replaceUser);
-app.delete('/api/users/:id', usersController.deleteUser);
-
-// CART endpoints
-app.get('/api/cart/:userId', cartController.getUserCart);
-app.post('/api/cart/:userId/items', cartController.addToCart);
-app.patch('/api/cart/:userId/items/:productId', cartController.updateCartItem);
-app.delete('/api/cart/:userId/items/:productId', cartController.removeCartItem);
-app.delete('/api/cart/:userId', cartController.clearCart);
+//Routers
+app.use(productRouter)
+app.use(categoriesRouter)
+app.use(usersRouter)
+app.use(cartRouter)
 
 
+// Not Found Middleware
+app.use((req,res)=>{
+    res.status(404).json({message: "Specified Endpoint is not Found"})
+})
 
+// Error Middleware
+app.use((error,req,res,next)=>{
+    res.status(500).json({message : `Error Occured , ${error}`})
+})
 
 mongoose.connect("mongodb://127.0.0.1:27017/EcommerceSystem")
 .then( async()=>{

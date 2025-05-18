@@ -1,4 +1,6 @@
 const { products, categories } = require('../data');
+const Category = require('../models/categories')
+
 
 exports.getAllCategories = (req, res) => {
     res.json(categories);

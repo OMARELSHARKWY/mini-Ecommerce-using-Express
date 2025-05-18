@@ -4,7 +4,7 @@ const { productSchema } = require("../schemas/product.schema");
 const Product = require("../models/products");
 
 // Get all products
-exports.getAllProducts = async (req, res) => {
+exports.getAllProducts = async (req, res ) => {
   try {
     const products = await Product.find();
     res.status(200).json(products);
@@ -12,6 +12,19 @@ exports.getAllProducts = async (req, res) => {
     res.status(500).json({ error: "Error fetching products" });
   }
 };
+
+/**
+ * Get all products without using try catch using Error Middleware
+ * we use Error Middleware With not expected error 
+ */
+
+// exports.getAllProducts = async (req, res , next) => {
+//     const products = await Product.find();
+//     throw new Error ("Custom Error")
+//     res.status(200).json(products);
+//     // res.status(500).json({ error: "Error fetching products" });
+//     next(error)
+// };
 
 // Get product by ID
 exports.getProductById = async (req, res) => {

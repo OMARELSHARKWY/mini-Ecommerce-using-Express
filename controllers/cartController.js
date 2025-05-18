@@ -1,4 +1,5 @@
 const { cart, products } = require('../data');
+const Cart = require('../models/cart')
 
 exports.getUserCart = (req, res) => {
     const userCart = cart.find(c => c.userId === parseInt(req.params.userId));
