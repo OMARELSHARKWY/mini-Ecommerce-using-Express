@@ -1,0 +1,158 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ecommerce Application API",
+    "version": "1.0.0",
+    "description": "CRUD API for managing products"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "summary": "Get all products",
+        "responses": {
+          "200": {
+            "description": "List of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new product",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "product Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "summary": "Get product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product retrieved"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update product by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product updated"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "float"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product Name"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "description": "The Price Of Product"
+          },
+          "categoryId": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "categoryId"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": []
+}

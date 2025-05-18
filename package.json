@@ -1,0 +1,31 @@
+{
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "Express js web api",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "debug": "node inspect app.js",
+    "swagger": "node generate-swagger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OMARELSHARKWY/mini_Ecommerce_Express.git"
+  },
+  "author": "Omar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OMARELSHARKWY/mini_Ecommerce_Express/issues"
+  },
+  "homepage": "https://github.com/OMARELSHARKWY/mini_Ecommerce_Express#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "joi-to-swagger": "^6.2.0",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
